@@ -1,0 +1,46 @@
+.contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-block {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.input-block input {
+    flex: 1;
+    padding: 10px 5px;
+    border: 2px solid #50bccf;
+    border-radius: 6px;
+    background: transparent;
+
+    font-size: 25px;
+    color: #c673f0;
+}
+
+.input-block input::placeholder {
+    color: #50bccf;
+    font-size: 20px;
+}
+
+.input-block span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 49px;
+    height: 49px;
+    border: 2px solid #50bccf;
+    border-radius: 6px;
+    font-size: 22px;
+    color: #50bccf;
+    background-color: transparent;
+
+    font-weight: bold;
+    font-size: 25px;
+    color: #e96787;
+}

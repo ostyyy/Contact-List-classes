@@ -1,5 +1,6 @@
 import { Component } from 'react';
 
+import './ContactForm.css';
 export class ContactForm extends Component {
     state = {
         id: null,
@@ -36,38 +37,52 @@ export class ContactForm extends Component {
     render() {
         return (
             <form className="contact-form" onSubmit={this.handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="First name"
-                    name="firstName"
-                    value={this.state.firstName}
-                    onChange={this.handleInputChange}
-                />
-                <span>X</span>
-                <input
-                    type="text"
-                    placeholder="Last name"
-                    name="lastName"
-                    value={this.state.lastName}
-                    onChange={this.handleInputChange}
-                />
-                <span>X</span>
-                <input
-                    type="email"
-                    placeholder="example@domain.com"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleInputChange}
-                />
-                <span>X</span>
-                <input
-                    type="tel"
-                    placeholder="Phone number"
-                    name="phone"
-                    value={this.state.phone}
-                    onChange={this.handleInputChange}
-                />
-                <span>X</span>
+                <div className="input-block">
+                    {' '}
+                    <input
+                        type="text"
+                        placeholder="First name"
+                        name="firstName"
+                        value={this.state.firstName}
+                        onChange={this.handleInputChange}
+                    />
+                    <span>X</span>
+                </div>
+
+                <div className="input-block">
+                    {' '}
+                    <input
+                        type="text"
+                        placeholder="Last name"
+                        name="lastName"
+                        value={this.state.lastName}
+                        onChange={this.handleInputChange}
+                    />
+                    <span>X</span>
+                </div>
+
+                <div className="input-block">
+                    <input
+                        type="email"
+                        placeholder="example@domain.com"
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.handleInputChange}
+                    />
+                    <span>X</span>
+                </div>
+
+                <div className="input-block">
+                    <input
+                        type="tel"
+                        placeholder="Phone number"
+                        name="phone"
+                        value={this.state.phone}
+                        onChange={this.handleInputChange}
+                    />
+                    <span>X</span>
+                </div>
+
                 <button type="submit">Save</button>
                 {/* <button>Delete</button>
                 <button>New</button> */}

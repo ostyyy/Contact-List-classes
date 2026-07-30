@@ -35,10 +35,18 @@ export class App extends Component {
 
     render() {
         return (
-            <div>
-                <ContactList contacts={this.state.contacts} />
+            <div className="main-container">
+                <h1>Contact List</h1>
+                
+                <div className="content-container">
+                    <div className="list-container">
+                        <ContactList contacts={this.state.contacts} />
+                    </div>
 
-                <ContactForm onSubmit={this.addContact} />
+                    <div className="form-container">
+                        <ContactForm onSubmit={this.addContact} />
+                    </div>
+                </div>
             </div>
         );
     }

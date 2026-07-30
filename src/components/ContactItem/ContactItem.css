@@ -1,0 +1,21 @@
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border: 2px solid #50bccf;
+    border-radius: 6px;
+    background: transparent;
+}
+.contact-item p {
+    margin: 0;
+    font-size: 25px;
+    color: #c673f0;
+    font-weight: 500;
+}
+.contact-item .delete-btn {
+    font-size: 25px;
+    font-weight: bold;
+    color: #e96787;
+    user-select: none;
+}

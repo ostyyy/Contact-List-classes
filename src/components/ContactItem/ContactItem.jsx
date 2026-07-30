@@ -1,15 +1,16 @@
 import { Component } from 'react';
 
+import './ContactItem.css';
 export class ContactItem extends Component {
     render() {
         const contact = this.props.contact;
         return (
-            <div>
+            <li className="contact-item">
                 <p>
                     {contact.firstName} {contact.lastName}
                 </p>
                 <span className="delete-btn">X</span>
-            </div>
+            </li>
         );
     }
 }
