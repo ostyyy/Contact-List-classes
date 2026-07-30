@@ -7,10 +7,19 @@ export class ContactItem extends Component {
         this.props.onDelete(this.props.contact.id);
     };
 
+    handleContactSelect = (event) => {
+        event.stopPropagation();
+        this.props.onSelect(this.props.contact.id);
+    };
+
+
     render() {
         const contact = this.props.contact;
         return (
-            <li className="contact-item">
+            <li
+                className="contact-item"
+                onDoubleClick={this.handleContactSelect}
+            >
                 <p>
                     {contact.firstName} {contact.lastName}
                 </p>

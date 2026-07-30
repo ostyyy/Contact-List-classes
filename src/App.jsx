@@ -17,13 +17,7 @@ export class App extends Component {
                 phone: '+123456789',
             },
         ],
-        // contact: {
-        //     id: null,
-        //     firstName: '',
-        //     lastName: '',
-        //     email: '',
-        //     phone: '',
-        // },
+        selectedContactId: null,
     };
 
     addContact = (contact) => {
@@ -41,7 +35,21 @@ export class App extends Component {
         });
     };
 
+    handleSelectContact = (id) => {
+        this.setState({ selectedContactId: id });
+    };
+
+    saveContactsToStorage = () => {
+        localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    };
+
+    componentDidMount() {
+
+    }
+    componentDidUpdate(prevProps, prevState) {}
+
     render() {
+        console.log(this.state.selectedContactId);
         return (
             <div className="main-container">
                 <h1>Contact List</h1>
@@ -51,6 +59,7 @@ export class App extends Component {
                         <ContactList
                             contacts={this.state.contacts}
                             onDelete={this.deleteContact}
+                            onSelect={this.handleSelectContact}
                         />
                     </div>
 

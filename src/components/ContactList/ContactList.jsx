@@ -13,6 +13,7 @@ export class ContactList extends Component {
                             key={contact.id}
                             contact={contact}
                             onDelete={this.props.onDelete}
+                            onSelect={this.props.onSelect}
                         />
                     );
                 })}
