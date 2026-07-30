@@ -8,23 +8,14 @@ import './App.css';
 
 export class App extends Component {
     state = {
-        contacts: [
-            {
-                id: '1',
-                firstName: 'John',
-                lastName: 'Doe',
-                email: 'john.doe@example.com',
-                phone: '+123456789',
-            },
-        ],
+        contacts: [],
         selectedContactId: null,
     };
 
     addContact = (contact) => {
         contact.id = nanoid();
-        this.setState({
-            contacts: [...this.state.contacts, contact],
-        });
+
+        this.setState({ contacts: [...this.state.contacts, contact] });
     };
 
     deleteContact = (id) => {
@@ -44,9 +35,19 @@ export class App extends Component {
     };
 
     componentDidMount() {
-
+        const contacts = JSON.parse(localStorage.getItem('contacts'));
+        if (!contacts) {
+            this.setState({ contacts: [] });
+        } else {
+            this.setState({ contacts: [...contacts] });
+        }
     }
-    componentDidUpdate(prevProps, prevState) {}
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.contacts !== this.state.contacts) {
+            this.saveContactsToStorage();
+        }
+    }
 
     render() {
         console.log(this.state.selectedContactId);
