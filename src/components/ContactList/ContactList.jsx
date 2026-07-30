@@ -1,8 +1,15 @@
 import { Component } from 'react';
-
+import { ContactItem } from '../ContactItem/ContactItem';
 export class ContactList extends Component {
     render() {
-        return <div>ContactList</div>;
+        const contacts = this.props.contacts;
+        return (
+            <div>
+                {contacts.map((contact) => {
+                    return <ContactItem key={contact.id} contact={contact} />;
+                })}
+            </div>
+        );
     }
 }
 
