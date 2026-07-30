@@ -2,6 +2,11 @@ import { Component } from 'react';
 
 import './ContactItem.css';
 export class ContactItem extends Component {
+    handleContactDelete = (event) => {
+        event.stopPropagation();
+        this.props.onDelete(this.props.contact.id);
+    };
+
     render() {
         const contact = this.props.contact;
         return (
@@ -9,7 +14,9 @@ export class ContactItem extends Component {
                 <p>
                     {contact.firstName} {contact.lastName}
                 </p>
-                <span className="delete-btn">X</span>
+                <span className="delete-btn" onClick={this.handleContactDelete}>
+                    X
+                </span>
             </li>
         );
     }

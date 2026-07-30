@@ -33,14 +33,25 @@ export class App extends Component {
         });
     };
 
+    deleteContact = (id) => {
+        this.setState({
+            contacts: [
+                ...this.state.contacts.filter((contact) => contact.id !== id),
+            ],
+        });
+    };
+
     render() {
         return (
             <div className="main-container">
                 <h1>Contact List</h1>
-                
+
                 <div className="content-container">
                     <div className="list-container">
-                        <ContactList contacts={this.state.contacts} />
+                        <ContactList
+                            contacts={this.state.contacts}
+                            onDelete={this.deleteContact}
+                        />
                     </div>
 
                     <div className="form-container">

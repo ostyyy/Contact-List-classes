@@ -83,9 +83,11 @@ export class ContactForm extends Component {
                     <span>X</span>
                 </div>
 
-                <button type="submit">Save</button>
-                {/* <button>Delete</button>
-                <button>New</button> */}
+                <div className="button-block">
+                    <button type="submit">Save</button>
+                    <button type="button">Delete</button>
+                    <button type="button">New</button>
+                </div>
             </form>
         );
     }
