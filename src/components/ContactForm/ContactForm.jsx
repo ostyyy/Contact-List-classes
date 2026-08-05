@@ -23,6 +23,16 @@ export class ContactForm extends Component {
         });
     };
 
+    resetForm = () => {
+        this.setState({
+            id: null,
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+        });
+    };
+
     handleSubmit = (event) => {
         event.preventDefault();
 
@@ -35,13 +45,7 @@ export class ContactForm extends Component {
                 email: this.state.email,
                 phone: this.state.phone,
             });
-            this.setState({
-                id: null,
-                firstName: '',
-                lastName: '',
-                email: '',
-                phone: '',
-            });
+            this.resetForm();
         }
     };
 
@@ -50,13 +54,7 @@ export class ContactForm extends Component {
             if (this.props.selectedContact) {
                 this.setState({ ...this.props.selectedContact });
             } else {
-                this.setState({
-                    id: null,
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    phone: '',
-                });
+                this.resetForm();
             }
         }
     }
@@ -119,12 +117,22 @@ export class ContactForm extends Component {
                 </div>
 
                 <div className="button-block">
-                    <button type="button" onClick={() => this.props.onReset()}>
+                    <button
+                        className="new-btn"
+                        type="button"
+                        onClick={() => {
+                            this.props.onReset();
+                            this.resetForm();
+                        }}
+                    >
                         New
                     </button>
-                    <button type="submit">Save</button>
+                    <button className="save-btn" type="submit">
+                        Save
+                    </button>
                     {this.state.id && (
                         <button
+                            className="delete-form-btn"
                             type="button"
                             onClick={() => this.props.onDelete(this.state.id)}
                         >

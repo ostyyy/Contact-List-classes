@@ -26,8 +26,7 @@ h1 {
     gap: 25px;
 }
 
-.list-container,
-.form-container {
+.list-container {
     border: 2px solid #50bccf;
     padding: 15px;
 }

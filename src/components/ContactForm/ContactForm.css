@@ -47,17 +47,43 @@
 
 .button-block {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 15px;
     margin-top: 10px;
 }
 
 .button-block button {
     flex: 1;
-    padding: 8px 10px;
-    border: 2px solid #50bccf;
-    border-radius: 6px;
-    background-color: transparent;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 1px;
 
-    font-size: 18px;
-    color: #486c72;
+    transition: all 0.2s ease;
+}
+
+.new-btn {
+    background: #f2d9ff;
+    color: #8a4fcf;
+    border: 2px solid #d8a7f0;
+    box-shadow: 0 0 14px rgba(216, 167, 240, 0.35);
+}
+
+.save-btn {
+    background: #a8e6c2;
+    border: 1px solid #67c193;
+    color: #1d5c42;
+    box-shadow: 0 0 14px rgba(103, 193, 147, 0.35);
+}
+
+.delete-form-btn {
+    background: #ff8fab;
+    border: 1px solid #ea6f96;
+    color: #fff;
+    box-shadow: 0 0 14px rgba(255, 143, 171, 0.35);
+}
+
+.button-block button:hover {
+    transform: translateY(-2px);
 }
