@@ -17,22 +17,49 @@ export class ContactForm extends Component {
         });
     };
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.onSubmit({
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            phone: this.state.phone,
-        });
+    handleInputClear = (inputName) => {
         this.setState({
-            id: null,
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
+            [inputName]: '',
         });
     };
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (this.state.id) {
+            this.props.onUpdate(this.state);
+        } else {
+            this.props.onSubmit({
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                phone: this.state.phone,
+            });
+            this.setState({
+                id: null,
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+            });
+        }
+    };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.selectedContact !== this.props.selectedContact) {
+            if (this.props.selectedContact) {
+                this.setState({ ...this.props.selectedContact });
+            } else {
+                this.setState({
+                    id: null,
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    phone: '',
+                });
+            }
+        }
+    }
 
     render() {
         return (
@@ -46,7 +73,9 @@ export class ContactForm extends Component {
                         value={this.state.firstName}
                         onChange={this.handleInputChange}
                     />
-                    <span>X</span>
+                    <span onClick={() => this.handleInputClear('firstName')}>
+                        X
+                    </span>
                 </div>
 
                 <div className="input-block">
@@ -58,7 +87,9 @@ export class ContactForm extends Component {
                         value={this.state.lastName}
                         onChange={this.handleInputChange}
                     />
-                    <span>X</span>
+                    <span onClick={() => this.handleInputClear('lastName')}>
+                        X
+                    </span>
                 </div>
 
                 <div className="input-block">
@@ -69,7 +100,9 @@ export class ContactForm extends Component {
                         value={this.state.email}
                         onChange={this.handleInputChange}
                     />
-                    <span>X</span>
+                    <span onClick={() => this.handleInputClear('email')}>
+                        X
+                    </span>
                 </div>
 
                 <div className="input-block">
@@ -80,13 +113,24 @@ export class ContactForm extends Component {
                         value={this.state.phone}
                         onChange={this.handleInputChange}
                     />
-                    <span>X</span>
+                    <span onClick={() => this.handleInputClear('phone')}>
+                        X
+                    </span>
                 </div>
 
                 <div className="button-block">
+                    <button type="button" onClick={() => this.props.onReset()}>
+                        New
+                    </button>
                     <button type="submit">Save</button>
-                    <button type="button">Delete</button>
-                    <button type="button">New</button>
+                    {this.state.id && (
+                        <button
+                            type="button"
+                            onClick={() => this.props.onDelete(this.state.id)}
+                        >
+                            Delete
+                        </button>
+                    )}
                 </div>
             </form>
         );
