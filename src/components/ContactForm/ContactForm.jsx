@@ -2,13 +2,16 @@ import { Component } from 'react';
 
 import './ContactForm.css';
 export class ContactForm extends Component {
-    state = {
-        id: null,
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-    };
+    state = { ...this.props.selectedContact };
+
+    static getDerivedStateFromProps(props, state) {
+        if (state.id === props.selectedContact.id) {
+            return {};
+        }
+        return {
+            ...props.selectedContact,
+        };
+    }
 
     handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -17,9 +20,11 @@ export class ContactForm extends Component {
         });
     };
 
-    handleInputClear = (inputName) => {
+    handleInputClear = (event) => {
+        const field = event.target.previousSibling;
+
         this.setState({
-            [inputName]: '',
+            [field.name]: '',
         });
     };
 
@@ -35,35 +40,13 @@ export class ContactForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-
-        if (this.state.id) {
-            this.props.onUpdate(this.state);
-        } else {
-            this.props.onSubmit({
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                email: this.state.email,
-                phone: this.state.phone,
-            });
-            this.resetForm();
-        }
+        this.props.onSubmit(this.state);
     };
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.selectedContact !== this.props.selectedContact) {
-            if (this.props.selectedContact) {
-                this.setState({ ...this.props.selectedContact });
-            } else {
-                this.resetForm();
-            }
-        }
-    }
 
     render() {
         return (
             <form className="contact-form" onSubmit={this.handleSubmit}>
                 <div className="input-block">
-                    {' '}
                     <input
                         type="text"
                         placeholder="First name"
@@ -71,13 +54,10 @@ export class ContactForm extends Component {
                         value={this.state.firstName}
                         onChange={this.handleInputChange}
                     />
-                    <span onClick={() => this.handleInputClear('firstName')}>
-                        X
-                    </span>
+                    <span onClick={this.handleInputClear}>X</span>
                 </div>
 
                 <div className="input-block">
-                    {' '}
                     <input
                         type="text"
                         placeholder="Last name"
@@ -85,9 +65,7 @@ export class ContactForm extends Component {
                         value={this.state.lastName}
                         onChange={this.handleInputChange}
                     />
-                    <span onClick={() => this.handleInputClear('lastName')}>
-                        X
-                    </span>
+                    <span onClick={this.handleInputClear}>X</span>
                 </div>
 
                 <div className="input-block">
@@ -98,9 +76,7 @@ export class ContactForm extends Component {
                         value={this.state.email}
                         onChange={this.handleInputChange}
                     />
-                    <span onClick={() => this.handleInputClear('email')}>
-                        X
-                    </span>
+                    <span onClick={this.handleInputClear}>X</span>
                 </div>
 
                 <div className="input-block">
@@ -111,9 +87,7 @@ export class ContactForm extends Component {
                         value={this.state.phone}
                         onChange={this.handleInputChange}
                     />
-                    <span onClick={() => this.handleInputClear('phone')}>
-                        X
-                    </span>
+                    <span onClick={this.handleInputClear}>X</span>
                 </div>
 
                 <div className="button-block">

@@ -8,9 +8,8 @@ export class ContactItem extends Component {
     };
 
     handleContactSelect = () => {
-        this.props.onSelect(this.props.contact.id);
+        this.props.onSelect(this.props.contact);
     };
-
 
     render() {
         const contact = this.props.contact;

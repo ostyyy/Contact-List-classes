@@ -9,7 +9,7 @@ import './App.css';
 export class App extends Component {
     state = {
         contacts: [],
-        selectedContactId: null,
+        selectedContact: this.createEmptyContact(),
     };
 
     componentDidMount() {
@@ -21,59 +21,73 @@ export class App extends Component {
         }
     }
 
-    saveContactsToStorage = () => {
-        localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    createEmptyContact() {
+        return {
+            id: null,
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+        };
+    }
+
+    saveContactsToStorage = (contacts) => {
+        localStorage.setItem('contacts', JSON.stringify(contacts));
     };
 
     addContact = (contact) => {
         contact.id = nanoid();
+        const contacts = [...this.state.contacts, contact];
+        this.setState({
+            contacts,
+            selectedContact: this.createEmptyContact(),
+        });
 
-        this.setState(
-            { contacts: [...this.state.contacts, contact] },
-            this.saveContactsToStorage,
-        );
-    };
-
-    deleteContact = (id) => {
-        this.setState(
-            {
-                contacts: [
-                    ...this.state.contacts.filter(
-                        (contact) => contact.id !== id,
-                    ),
-                ],
-                selectedContactId: null,
-            },
-            this.saveContactsToStorage,
-        );
+        this.saveContactsToStorage(contacts);
     };
 
     updateContact = (updatedContact) => {
-        this.setState(
-            {
-                contacts: this.state.contacts.map((contact) =>
-                    contact.id === updatedContact.id ? updatedContact : contact,
-                ),
-            },
-            this.saveContactsToStorage,
+        const contacts = this.state.contacts.map((contact) =>
+            contact.id === updatedContact.id ? updatedContact : contact,
         );
+        this.setState({
+            contacts,
+            selectedContact: updatedContact,
+        });
+
+        this.saveContactsToStorage(contacts);
     };
 
-    selectContact = (id) => {
-        this.setState({ selectedContactId: id });
+    saveContact = (contact) => {
+        if (contact.id) {
+            this.updateContact(contact);
+        } else {
+            this.addContact(contact);
+        }
+    };
+
+    deleteContact = (id) => {
+        const contacts = [
+            ...this.state.contacts.filter((contact) => contact.id !== id),
+        ];
+
+        this.setState({
+            contacts,
+            selectedContact: this.createEmptyContact(),
+        });
+
+        this.saveContactsToStorage(contacts);
+    };
+
+    selectContact = (contact) => {
+        this.setState({ selectedContact: contact });
     };
 
     deselectContact = () => {
-        this.setState({ selectedContactId: null });
+        this.setState({ selectedContact: this.createEmptyContact() });
     };
 
-    getSelectedContact = () => {
-        return this.state.contacts.find(
-            (contact) => contact.id === this.state.selectedContactId,
-        );
-    };
     render() {
-        const selectedContact = this.getSelectedContact();
         return (
             <div className="main-container">
                 <h1>Contact List</h1>
@@ -89,9 +103,8 @@ export class App extends Component {
 
                     <div className="form-container">
                         <ContactForm
-                            onSubmit={this.addContact}
-                            selectedContact={selectedContact}
-                            onUpdate={this.updateContact}
+                            onSubmit={this.saveContact}
+                            selectedContact={this.state.selectedContact}
                             onDelete={this.deleteContact}
                             onReset={this.deselectContact}
                         />
