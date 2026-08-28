@@ -1,10 +1,11 @@
-import { Component } from 'react';
 import { ContactItem } from '../ContactItem/ContactItem';
 
 import './ContactList.css';
-export class ContactList extends Component {
-    render() {
-        const contacts = this.props.contacts;
+
+function ContactList(props) {
+
+    const contacts = props.contacts;
+
         return (
             <ul className="contact-list">
                 {contacts.map((contact) => {
@@ -12,14 +13,14 @@ export class ContactList extends Component {
                         <ContactItem
                             key={contact.id}
                             contact={contact}
-                            onDelete={this.props.onDelete}
-                            onSelect={this.props.onSelect}
+                            onDelete={props.onDelete}
+                            onSelect={props.onSelect}
                         />
                     );
                 })}
             </ul>
         );
-    }
+    
 }
 
 export default ContactList;
