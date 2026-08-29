@@ -1,16 +1,15 @@
 import './ContactItem.css';
 
-function ContactItem(props) {
+function ContactItem({contact, onDelete, onSelect}) {
     const handleContactDelete = (event) => {
         event.stopPropagation();
-        props.onDelete(props.contact.id);
+        onDelete(contact.id);
     };
 
     const handleContactSelect = () => {
-        props.onSelect(props.contact);
+        onSelect(contact);
     };
 
-    const contact = props.contact;
     return (
         <li className="contact-item" onDoubleClick={handleContactSelect}>
             <p>

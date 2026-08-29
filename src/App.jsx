@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 
-import { ContactForm } from './components/ContactForm/ContactForm';
-import { ContactList } from './components/ContactList/ContactList';
+import ContactForm from './components/ContactForm/ContactForm';
+import ContactList from './components/ContactList/ContactList';
 
 import './App.css';
 
 function App() {
-
     const createEmptyContact = () => {
         return {
             id: null,
@@ -23,14 +22,17 @@ function App() {
     const [selectedContact, setSelectedContact] =
         useState(createEmptyContact());
 
-    // componentDidMount() {
-    //     const contacts = JSON.parse(localStorage.getItem('contacts'));
-    //     if (!contacts) {
-    //         setState({ contacts: [] });
-    //     } else {
-    //         setState({ contacts: [...contacts] });
-    //     } 
-    // }
+    useEffect(getFromStorage, []);
+
+    function getFromStorage(){
+         const contacts = JSON.parse(localStorage.getItem('contacts'));
+
+        if (!contacts) {
+            setArrContacts([]);
+        } else {
+            setArrContacts(contacts);
+        }
+    }
 
     const saveContactsToStorage = (contacts) => {
         localStorage.setItem('contacts', JSON.stringify(contacts));

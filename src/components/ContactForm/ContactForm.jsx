@@ -2,19 +2,20 @@ import { useState } from 'react';
 
 import './ContactForm.css';
 
-function ContactForm(props) {
+function ContactForm({ selectedContact, onSubmit, onReset, onDelete }) {
     const [contactForEdit, setContactForEdit] = useState({
-        ...props.selectedContact,
+        ...selectedContact,
     });
 
-    // static getDerivedcontactForEditFromProps(props, contactForEdit) {
-    //     if (contactForEdit.id === props.selectedContact.id) {
-    //         return {};
-    //     }
-    //     return {
-    //         ...props.selectedContact,
-    //     };
-    // }
+    const [prevSelectedContact, setPrevSelectedContact] =
+        useState(selectedContact);
+
+    if (selectedContact !== prevSelectedContact) {
+        setPrevSelectedContact(selectedContact);
+        setContactForEdit({
+            ...selectedContact,
+        });
+    }
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -45,7 +46,7 @@ function ContactForm(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onSubmit(contactForEdit);
+        onSubmit(contactForEdit);
     };
 
     return (
@@ -99,7 +100,7 @@ function ContactForm(props) {
                     className="new-btn"
                     type="button"
                     onClick={() => {
-                        props.onReset();
+                        onReset();
                         resetForm();
                     }}
                 >
@@ -112,7 +113,7 @@ function ContactForm(props) {
                     <button
                         className="delete-form-btn"
                         type="button"
-                        onClick={() => props.onDelete(contactForEdit.id)}
+                        onClick={() => onDelete(contactForEdit.id)}
                     >
                         Delete
                     </button>
