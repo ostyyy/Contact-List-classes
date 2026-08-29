@@ -24,8 +24,8 @@ function App() {
 
     useEffect(getFromStorage, []);
 
-    function getFromStorage(){
-         const contacts = JSON.parse(localStorage.getItem('contacts'));
+    function getFromStorage() {
+        const contacts = JSON.parse(localStorage.getItem('contacts'));
 
         if (!contacts) {
             setArrContacts([]);

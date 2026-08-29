@@ -34,16 +34,6 @@ function ContactForm({ selectedContact, onSubmit, onReset, onDelete }) {
         }));
     };
 
-    const resetForm = () => {
-        setContactForEdit({
-            id: null,
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-        });
-    };
-
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(contactForEdit);
@@ -101,7 +91,6 @@ function ContactForm({ selectedContact, onSubmit, onReset, onDelete }) {
                     type="button"
                     onClick={() => {
                         onReset();
-                        resetForm();
                     }}
                 >
                     New
