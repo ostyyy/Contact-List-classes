@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
 
 import ContactForm from './components/ContactForm/ContactForm';
 import ContactList from './components/ContactList/ContactList';
+import api from './api/contact-service';
 
 import './App.css';
 
@@ -22,42 +22,47 @@ function App() {
     const [selectedContact, setSelectedContact] =
         useState(createEmptyContact());
 
-    useEffect(getFromStorage, []);
-
-    function getFromStorage() {
-        const contacts = JSON.parse(localStorage.getItem('contacts'));
-
-        if (!contacts) {
-            setArrContacts([]);
-        } else {
-            setArrContacts(contacts);
-        }
-    }
-
-    const saveContactsToStorage = (contacts) => {
-        localStorage.setItem('contacts', JSON.stringify(contacts));
-    };
+    useEffect(() => {
+        api.get('/')
+            .then(({ data }) => {
+                if (!data) {
+                    setArrContacts([]);
+                } else {
+                    setArrContacts(data);
+                }
+            })
+            .catch((error) => {
+                // eslint-disable-next-line no-console
+                console.error('Error: ', error);
+            });
+    }, []);
 
     const addContact = (contact) => {
-        contact.id = nanoid();
-
-        const contacts = [...arrContacts, contact];
-
-        setArrContacts(contacts);
-        setSelectedContact(createEmptyContact());
-
-        saveContactsToStorage(contacts);
+        api.post('/', contact)
+            .then(({ data }) => {
+                setArrContacts((contacts) => [...contacts, data]);
+                setSelectedContact(createEmptyContact());
+            })
+            .catch((error) => {
+                // eslint-disable-next-line no-console
+                console.error('Error adding contact: ', error);
+            });
     };
 
     const updateContact = (updatedContact) => {
-        const contacts = arrContacts.map((contact) =>
-            contact.id === updatedContact.id ? updatedContact : contact,
-        );
+        api.put(`/${updatedContact.id}`, updatedContact)
+            .then(({ data }) => {
+                const contacts = arrContacts.map((contact) =>
+                    contact.id === data.id ? data : contact,
+                );
 
-        setArrContacts(contacts);
-        setSelectedContact(updatedContact);
-
-        saveContactsToStorage(contacts);
+                setArrContacts(contacts);
+                setSelectedContact(data);
+            })
+            .catch((error) => {
+                // eslint-disable-next-line no-console
+                console.error('Error updating contact: ', error);
+            });
     };
 
     const saveContact = (contact) => {
@@ -69,14 +74,21 @@ function App() {
     };
 
     const deleteContact = (id) => {
-        const contacts = [
-            ...arrContacts.filter((contact) => contact.id !== id),
-        ];
+        api.delete(`/${id}`)
+            .then(() => {
+                const contacts = arrContacts.filter(
+                    (contact) => contact.id !== id,
+                );
 
-        setArrContacts(contacts);
-        setSelectedContact(createEmptyContact());
-
-        saveContactsToStorage(contacts);
+                setArrContacts(contacts);
+                if (selectedContact.id === id) {
+                    setSelectedContact(createEmptyContact());
+                }
+            })
+            .catch((error) => {
+                // eslint-disable-next-line no-console
+                console.error('Error deleting contact: ', error);
+            });
     };
 
     const selectContact = (contact) => {
