@@ -10,7 +10,7 @@ import './ContactList.css';
 /* eslint-disable react-refresh/only-export-components */
 function ContactList({ contacts, getContacts }) {
     useEffect(() => {
-        api.get('/').then((data) => getContacts(data));
+        api.get('/contacts').then((data) => getContacts(data));
     }, [getContacts]);
 
     return (

@@ -1,4 +1,5 @@
 // import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import ContactForm from './components/ContactForm/ContactForm';
 import ContactList from './components/ContactList/ContactList';
@@ -90,6 +91,8 @@ function App() {
     //     setSelectedContact(createEmptyContact());
     // };
 
+    const selectedContact = useSelector((state) => state.selectedContact);
+
     return (
         <div className="main-container">
             <h1>Contact List</h1>
@@ -100,7 +103,10 @@ function App() {
                 </div>
 
                 <div className="form-container">
-                    <ContactForm />
+                    <ContactForm
+                        key={selectedContact.id ?? 'new'}
+                        selectedContact={selectedContact}
+                    />
                 </div>
             </div>
         </div>

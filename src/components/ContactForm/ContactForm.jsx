@@ -1,21 +1,22 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import api from '../../api/contact-service';
+import {
+    addContact,
+    updateContact,
+    deleteContact,
+    deselectContact,
+} from '../../store/actions/contactActions';
 
 import './ContactForm.css';
 
-function ContactForm({ selectedContact, onSubmit, onReset, onDelete }) {
+function ContactForm({ selectedContact }) {
     const [contactForEdit, setContactForEdit] = useState({
         ...selectedContact,
     });
 
-    const [prevSelectedContact, setPrevSelectedContact] =
-        useState(selectedContact);
-
-    if (selectedContact !== prevSelectedContact) {
-        setPrevSelectedContact(selectedContact);
-        setContactForEdit({
-            ...selectedContact,
-        });
-    }
+    const dispatch = useDispatch();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -36,7 +37,25 @@ function ContactForm({ selectedContact, onSubmit, onReset, onDelete }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onSubmit(contactForEdit);
+
+        if (contactForEdit.id) {
+            api.put(`/contacts/${contactForEdit.id}`, contactForEdit).then(
+                ({ data }) => dispatch(updateContact(data)),
+            );
+        } else {
+            api.post('/contacts', contactForEdit).then(({ data }) =>
+                dispatch(addContact(data)),
+            );
+        }
+    };
+
+    const handleDelete = () => {
+        api.delete(`/contacts/${contactForEdit.id}`).then(() => {
+            dispatch(deleteContact(contactForEdit.id));
+        });
+    };
+    const handleReset = () => {
+        dispatch(deselectContact());
     };
 
     return (
@@ -86,13 +105,7 @@ function ContactForm({ selectedContact, onSubmit, onReset, onDelete }) {
             </div>
 
             <div className="button-block">
-                <button
-                    className="new-btn"
-                    type="button"
-                    onClick={() => {
-                        onReset();
-                    }}
-                >
+                <button className="new-btn" type="button" onClick={handleReset}>
                     New
                 </button>
                 <button className="save-btn" type="submit">
@@ -102,7 +115,7 @@ function ContactForm({ selectedContact, onSubmit, onReset, onDelete }) {
                     <button
                         className="delete-form-btn"
                         type="button"
-                        onClick={() => onDelete(contactForEdit.id)}
+                        onClick={handleDelete}
                     >
                         Delete
                     </button>

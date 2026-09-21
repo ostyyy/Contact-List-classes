@@ -24,7 +24,11 @@ export default function contactsReducer(
                 contacts: state.contacts.filter(
                     (contact) => contact.id !== payload,
                 ),
-                selectedContact: createEmptyContact(),
+
+                selectedContact:
+                    state.selectedContact.id === payload
+                        ? createEmptyContact()
+                        : state.selectedContact,
             };
         case 'updateContact':
             return {
