@@ -1,17 +1,19 @@
-import ContactItem from '../ContactItem/ContactItem';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
 
+import ContactItem from '../ContactItem/ContactItem';
 import { getContacts } from '../../store/actions/contactActions';
 import api from '../../api/contact-service';
 
 import './ContactList.css';
 
-/* eslint-disable react-refresh/only-export-components */
-function ContactList({ contacts, getContacts }) {
+function ContactList() {
+    const dispatch = useDispatch();
+    const contacts = useSelector((state) => state.contacts);
+
     useEffect(() => {
-        api.get('/contacts').then((data) => getContacts(data));
-    }, [getContacts]);
+        api.get('/contacts').then(({ data }) => dispatch(getContacts(data)));
+    }, [dispatch]);
 
     return (
         <ul className="contact-list">
@@ -29,11 +31,11 @@ function ContactList({ contacts, getContacts }) {
     );
 }
 
-const mapStateToProps = ({ contacts }) => ({ contacts });
+// const mapStateToProps = ({ contacts }) => ({ contacts });
 
-const mapDispatchToProps = {
-    getContacts,
-};
+// const mapDispatchToProps = {
+//     getContacts,
+// };
 
 // function mapDispatchToProps(dispatch) {
 //     return {
@@ -41,4 +43,4 @@ const mapDispatchToProps = {
 //     };
 // }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default ContactList;
