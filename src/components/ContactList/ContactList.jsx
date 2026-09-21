@@ -1,8 +1,18 @@
 import ContactItem from '../ContactItem/ContactItem';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { getContacts } from '../../store/actions/contactActions';
+import api from '../../api/contact-service';
 
 import './ContactList.css';
 
-function ContactList({ contacts, onDelete, onSelect }) {
+/* eslint-disable react-refresh/only-export-components */
+function ContactList({ contacts, getContacts }) {
+    useEffect(() => {
+        api.get('/').then((data) => getContacts(data));
+    }, [getContacts]);
+
     return (
         <ul className="contact-list">
             {contacts.map((contact) => {
@@ -10,8 +20,8 @@ function ContactList({ contacts, onDelete, onSelect }) {
                     <ContactItem
                         key={contact.id}
                         contact={contact}
-                        onDelete={onDelete}
-                        onSelect={onSelect}
+                        // onDelete={onDelete}
+                        // onSelect={onSelect}
                     />
                 );
             })}
@@ -19,4 +29,16 @@ function ContactList({ contacts, onDelete, onSelect }) {
     );
 }
 
-export default ContactList;
+const mapStateToProps = ({ contacts }) => ({ contacts });
+
+const mapDispatchToProps = {
+    getContacts,
+};
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//         getContacts: (contacts) => dispatch(getContacts(contacts)),
+//     };
+// }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

@@ -1,103 +1,94 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 import ContactForm from './components/ContactForm/ContactForm';
 import ContactList from './components/ContactList/ContactList';
-import api from './api/contact-service';
+// import api from './api/contact-service';
+// import { createEmptyContact } from './model/initialContacts';
 
 import './App.css';
 
 function App() {
-    const createEmptyContact = () => {
-        return {
-            id: null,
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-        };
-    };
+    // const [arrContacts, setArrContacts] = useState([]);
 
-    const [arrContacts, setArrContacts] = useState([]);
+    // const [selectedContact, setSelectedContact] =
+    //     useState(createEmptyContact());
 
-    const [selectedContact, setSelectedContact] =
-        useState(createEmptyContact());
+    // useEffect(() => {
+    //     api.get('/')
+    //         .then(({ data }) => {
+    //             if (!data) {
+    //                 setArrContacts([]);
+    //             } else {
+    //                 setArrContacts(data);
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             // eslint-disable-next-line no-console
+    //             console.error('Error: ', error);
+    //         });
+    // }, []);
 
-    useEffect(() => {
-        api.get('/')
-            .then(({ data }) => {
-                if (!data) {
-                    setArrContacts([]);
-                } else {
-                    setArrContacts(data);
-                }
-            })
-            .catch((error) => {
-                // eslint-disable-next-line no-console
-                console.error('Error: ', error);
-            });
-    }, []);
+    // const addContact = (contact) => {
+    //     api.post('/', contact)
+    //         .then(({ data }) => {
+    //             setArrContacts((contacts) => [...contacts, data]);
+    //             setSelectedContact(createEmptyContact());
+    //         })
+    //         .catch((error) => {
+    //             // eslint-disable-next-line no-console
+    //             console.error('Error adding contact: ', error);
+    //         });
+    // };
 
-    const addContact = (contact) => {
-        api.post('/', contact)
-            .then(({ data }) => {
-                setArrContacts((contacts) => [...contacts, data]);
-                setSelectedContact(createEmptyContact());
-            })
-            .catch((error) => {
-                // eslint-disable-next-line no-console
-                console.error('Error adding contact: ', error);
-            });
-    };
+    // const updateContact = (updatedContact) => {
+    //     api.put(`/${updatedContact.id}`, updatedContact)
+    //         .then(({ data }) => {
+    //             const contacts = arrContacts.map((contact) =>
+    //                 contact.id === data.id ? data : contact,
+    //             );
 
-    const updateContact = (updatedContact) => {
-        api.put(`/${updatedContact.id}`, updatedContact)
-            .then(({ data }) => {
-                const contacts = arrContacts.map((contact) =>
-                    contact.id === data.id ? data : contact,
-                );
+    //             setArrContacts(contacts);
+    //             setSelectedContact(data);
+    //         })
+    //         .catch((error) => {
+    //             // eslint-disable-next-line no-console
+    //             console.error('Error updating contact: ', error);
+    //         });
+    // };
 
-                setArrContacts(contacts);
-                setSelectedContact(data);
-            })
-            .catch((error) => {
-                // eslint-disable-next-line no-console
-                console.error('Error updating contact: ', error);
-            });
-    };
+    // const saveContact = (contact) => {
+    //     if (contact.id) {
+    //         updateContact(contact);
+    //     } else {
+    //         addContact(contact);
+    //     }
+    // };
 
-    const saveContact = (contact) => {
-        if (contact.id) {
-            updateContact(contact);
-        } else {
-            addContact(contact);
-        }
-    };
+    // const deleteContact = (id) => {
+    //     api.delete(`/${id}`)
+    //         .then(() => {
+    //             const contacts = arrContacts.filter(
+    //                 (contact) => contact.id !== id,
+    //             );
 
-    const deleteContact = (id) => {
-        api.delete(`/${id}`)
-            .then(() => {
-                const contacts = arrContacts.filter(
-                    (contact) => contact.id !== id,
-                );
+    //             setArrContacts(contacts);
+    //             if (selectedContact.id === id) {
+    //                 setSelectedContact(createEmptyContact());
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             // eslint-disable-next-line no-console
+    //             console.error('Error deleting contact: ', error);
+    //         });
+    // };
 
-                setArrContacts(contacts);
-                if (selectedContact.id === id) {
-                    setSelectedContact(createEmptyContact());
-                }
-            })
-            .catch((error) => {
-                // eslint-disable-next-line no-console
-                console.error('Error deleting contact: ', error);
-            });
-    };
+    // const selectContact = (contact) => {
+    //     setSelectedContact(contact);
+    // };
 
-    const selectContact = (contact) => {
-        setSelectedContact(contact);
-    };
-
-    const deselectContact = () => {
-        setSelectedContact(createEmptyContact());
-    };
+    // const deselectContact = () => {
+    //     setSelectedContact(createEmptyContact());
+    // };
 
     return (
         <div className="main-container">
@@ -105,20 +96,11 @@ function App() {
 
             <div className="content-container">
                 <div className="list-container">
-                    <ContactList
-                        contacts={arrContacts}
-                        onDelete={deleteContact}
-                        onSelect={selectContact}
-                    />
+                    <ContactList />
                 </div>
 
                 <div className="form-container">
-                    <ContactForm
-                        onSubmit={saveContact}
-                        selectedContact={selectedContact}
-                        onDelete={deleteContact}
-                        onReset={deselectContact}
-                    />
+                    <ContactForm />
                 </div>
             </div>
         </div>
