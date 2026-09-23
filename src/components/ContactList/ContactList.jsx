@@ -24,16 +24,4 @@ function ContactList() {
     );
 }
 
-// const mapStateToProps = ({ contacts }) => ({ contacts });
-
-// const mapDispatchToProps = {
-//     getContacts,
-// };
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         getContacts: (contacts) => dispatch(getContacts(contacts)),
-//     };
-// }
-
 export default ContactList;
