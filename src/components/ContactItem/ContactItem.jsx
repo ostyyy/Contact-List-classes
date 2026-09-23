@@ -1,21 +1,26 @@
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import {
     deleteContact,
     selectContact,
 } from '../../store/actions/contactActions';
+import api from '../../api/contact-service';
 
 import './ContactItem.css';
 
-/* eslint-disable react-refresh/only-export-components */
-function ContactItem({ contact, deleteContact, selectContact }) {
+function ContactItem({ contact }) {
+    const dispatch = useDispatch();
+
     const handleContactDelete = (event) => {
         event.stopPropagation();
-        deleteContact(contact.id);
+
+        api.delete(`/contacts/${contact.id}`).then(() => {
+            dispatch(deleteContact(contact.id));
+        });
     };
 
     const handleContactSelect = () => {
-        selectContact(contact);
+        dispatch(selectContact(contact));
     };
 
     return (
@@ -30,9 +35,4 @@ function ContactItem({ contact, deleteContact, selectContact }) {
     );
 }
 
-const mapDispatchToProps = {
-    deleteContact,
-    selectContact,
-};
-
-export default connect(null, mapDispatchToProps)(ContactItem);
+export default ContactItem;

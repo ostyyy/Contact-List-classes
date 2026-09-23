@@ -18,14 +18,7 @@ function ContactList() {
     return (
         <ul className="contact-list">
             {contacts.map((contact) => {
-                return (
-                    <ContactItem
-                        key={contact.id}
-                        contact={contact}
-                        // onDelete={onDelete}
-                        // onSelect={onSelect}
-                    />
-                );
+                return <ContactItem key={contact.id} contact={contact} />;
             })}
         </ul>
     );
