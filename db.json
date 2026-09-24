@@ -20,6 +20,13 @@
       "lastName": "River",
       "email": "aaa@gmail.com",
       "phone": "+380723728172"
+    },
+    {
+      "id": "QUjz3hYZ-RA",
+      "firstName": "asf",
+      "lastName": "fa",
+      "email": "",
+      "phone": ""
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
