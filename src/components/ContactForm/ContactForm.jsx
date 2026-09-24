@@ -16,6 +16,14 @@ function ContactForm({ selectedContact }) {
         ...selectedContact,
     });
 
+    const [prevSelectedContact, setPrevSelectedContact] =
+        useState(selectedContact);
+
+    if (selectedContact !== prevSelectedContact) {
+        setPrevSelectedContact(selectedContact);
+        setContactForEdit({ ...selectedContact });
+    }
+
     const dispatch = useDispatch();
 
     const handleInputChange = (event) => {

@@ -23,6 +23,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/devtools": "^0.3.4",
     "@vitejs/plugin-react": "^6.0.3",
+    "concurrently": "^10.0.5",
     "eslint": "^10.6.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",

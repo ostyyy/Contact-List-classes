@@ -1,47 +1,42 @@
+import ACTION_TYPES from './actionTypes';
+
 export const getContacts = (contacts) => {
     return {
-        type: 'getContacts',
+        type: ACTION_TYPES.GET_CONTACTS,
         payload: contacts,
     };
 };
 
 export const addContact = (contact) => {
     return {
-        type: 'addContact',
+        type: ACTION_TYPES.ADD_CONTACT,
         payload: contact,
     };
 };
 
 export const updateContact = (updatedContact) => {
     return {
-        type: 'updateContact',
+        type: ACTION_TYPES.UPDATE_CONTACT,
         payload: updatedContact,
-    };
-};
-
-export const saveContact = (contact) => {
-    return {
-        type: 'saveContact',
-        payload: contact,
     };
 };
 
 export const deleteContact = (id) => {
     return {
-        type: 'deleteContact',
+        type: ACTION_TYPES.DELETE_CONTACT,
         payload: id,
     };
 };
 
 export const selectContact = (contact) => {
     return {
-        type: 'selectContact',
+        type: ACTION_TYPES.SELECT_CONTACT,
         payload: contact,
     };
 };
 
 export const deselectContact = () => {
     return {
-        type: 'deselectContact',
+        type: ACTION_TYPES.DESELECT_CONTACT,
     };
 };

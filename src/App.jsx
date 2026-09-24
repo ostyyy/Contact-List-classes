@@ -18,10 +18,7 @@ function App() {
                 </div>
 
                 <div className="form-container">
-                    <ContactForm
-                        key={selectedContact.id ?? 'new'}
-                        selectedContact={selectedContact}
-                    />
+                    <ContactForm selectedContact={selectedContact} />
                 </div>
             </div>
         </div>
