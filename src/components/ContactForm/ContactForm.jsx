@@ -1,17 +1,20 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import api from '../../api/contact-service';
 import {
     addContact,
     updateContact,
     deleteContact,
     deselectContact,
-} from '../../store/actions/contactActions';
+} from '../../store/slices/contactSlice';
 
 import './ContactForm.css';
 
-function ContactForm({ selectedContact }) {
+function ContactForm() {
+    const selectedContact = useSelector(
+        (state) => state.contactList.selectedContact,
+    );
+
     const [contactForEdit, setContactForEdit] = useState({
         ...selectedContact,
     });
@@ -47,20 +50,15 @@ function ContactForm({ selectedContact }) {
         event.preventDefault();
 
         if (contactForEdit.id) {
-            api.put(`/contacts/${contactForEdit.id}`, contactForEdit).then(
-                ({ data }) => dispatch(updateContact(data)),
-            );
+            dispatch(updateContact(contactForEdit));
         } else {
-            api.post('/contacts', contactForEdit).then(({ data }) =>
-                dispatch(addContact(data)),
-            );
+            dispatch(addContact(contactForEdit));
+            dispatch(deselectContact());
         }
     };
 
     const handleDelete = () => {
-        api.delete(`/contacts/${contactForEdit.id}`).then(() => {
-            dispatch(deleteContact(contactForEdit.id));
-        });
+        dispatch(deleteContact(contactForEdit.id));
     };
     const handleReset = () => {
         dispatch(deselectContact());

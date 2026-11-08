@@ -43,8 +43,3 @@ export const contactsState = [
         phone: '',
     },
 ];
-
-// export const initialState = {
-//     contacts: contactsState,
-//     selectedContact: createEmptyContact(),
-// };
