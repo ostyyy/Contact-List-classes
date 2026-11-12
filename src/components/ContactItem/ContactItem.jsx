@@ -17,11 +17,14 @@ function ContactItem({ contact }) {
         dispatch(selectContact(contact));
     };
 
+    const fullName = [contact.firstName, contact.lastName]
+        .filter(Boolean)
+        .join(' ');
+    const displayName = fullName || contact.phone || contact.email || 'Unknown';
+
     return (
         <li className="contact-item" onDoubleClick={handleContactSelect}>
-            <p>
-                {contact.firstName} {contact.lastName}
-            </p>
+            <p>{displayName}</p>
             <span className="delete-btn" onClick={handleContactDelete}>
                 X
             </span>
