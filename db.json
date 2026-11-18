@@ -13,6 +13,13 @@
       "lastName": "Luganosee",
       "email": "mahdo@gmail.com",
       "phone": "+3802773927499"
+    },
+    {
+      "id": "JeTn5za3z64",
+      "firstName": "jane",
+      "lastName": "",
+      "email": "rrr@gmail.com",
+      "phone": "+380991234567"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

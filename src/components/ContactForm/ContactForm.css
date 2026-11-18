@@ -27,7 +27,7 @@
     font-size: 20px;
 }
 
-.input-block span {
+.input-block button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,6 +43,16 @@
     font-weight: bold;
     font-size: 25px;
     color: #e96787;
+
+    padding: 0;
+}
+
+.error {
+    color: #e96787;
+    font-size: 18px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-left: 4px;
 }
 
 .button-block {
