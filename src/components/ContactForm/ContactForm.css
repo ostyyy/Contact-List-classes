@@ -87,6 +87,12 @@
     box-shadow: 0 0 14px rgba(103, 193, 147, 0.35);
 }
 
+.save-btn:disabled {
+    opacity: 0.3;                
+    box-shadow: none;          
+    pointer-events: none;      
+}
+
 .delete-form-btn {
     background: #ff8fab;
     border: 1px solid #ea6f96;
