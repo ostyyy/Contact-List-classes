@@ -79,8 +79,6 @@ export const theme = createTheme({
     },
 
     custom: {
-        mainBg: '#fffdf2',
-        icon: '#c673f0',
         newBtn: {
             bg: '#f2d9ff',
             text: '#8a4fcf',
@@ -88,4 +86,3 @@ export const theme = createTheme({
         },
     },
 });
-

@@ -2,10 +2,9 @@
 
 * {
     box-sizing: border-box;
-    font-family: 'VT323', monospace;
 }
 
 body {
     margin: 0;
-    background-color: #45c8dfad;
+    background-color: #51cee4ad;
 }
