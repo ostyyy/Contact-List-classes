@@ -1,6 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
+import SaveIcon from '@mui/icons-material/Save';
 
 import {
     addContact,
@@ -9,8 +14,7 @@ import {
     deselectContact,
 } from '../../store/slices/contactSlice';
 import { PHONE_REGEX } from '../../constants/constants';
-
-import './ContactForm.css';
+import FormField from '../FormField/FormField';
 
 function ContactForm() {
     const selectedContact = useSelector(
@@ -34,10 +38,6 @@ function ContactForm() {
         dispatch(deselectContact());
     };
 
-    const handleReset = () => {
-        dispatch(deselectContact());
-    };
-
     const schema = Yup.object({
         firstName: Yup.string().max(20, 'Too Long!'),
         lastName: Yup.string().max(20, 'Too Long!'),
@@ -52,94 +52,98 @@ function ContactForm() {
         ),
     });
 
-    const renderForm = ({ isValid, setFieldValue }) => {
+    const renderForm = ({ isValid, setFieldValue, resetForm }) => {
         const clearField = (fieldName) => () => {
             setFieldValue(fieldName, '');
         };
 
+        const handleReset = () => {
+            resetForm();
+            dispatch(deselectContact());
+        };
+
         return (
             <Form className="contact-form">
-                <div className="input-block">
-                    <Field
-                        type="text"
+                <Stack spacing={2}>
+                    <FormField
                         placeholder="First name"
                         name="firstName"
+                        clearField={clearField}
                     />
-
-                    <button type="button" onClick={clearField('firstName')}>
-                        X
-                    </button>
-                </div>
-                <ErrorMessage
-                    name="firstName"
-                    component="div"
-                    className="error"
-                />
-
-                <div className="input-block">
-                    <Field
-                        type="text"
+                    <FormField
                         placeholder="Last name"
                         name="lastName"
+                        clearField={clearField}
                     />
-
-                    <button type="button" onClick={clearField('lastName')}>
-                        X
-                    </button>
-                </div>
-                <ErrorMessage
-                    name="lastName"
-                    component="div"
-                    className="error"
-                />
-
-                <div className="input-block">
-                    <Field
-                        type="email"
+                    <FormField
                         placeholder="example@domain.com"
                         name="email"
+                        clearField={clearField}
                     />
+                    <FormField
+                        placeholder="Phone number"
+                        name="phone"
+                        clearField={clearField}
+                    />
+                </Stack>
 
-                    <button type="button" onClick={clearField('email')}>
-                        X
-                    </button>
-                </div>
-                <ErrorMessage name="email" component="div" className="error" />
-
-                <div className="input-block">
-                    <Field type="tel" placeholder="Phone number" name="phone" />
-
-                    <button type="button" onClick={clearField('phone')}>
-                        X
-                    </button>
-                </div>
-                <ErrorMessage name="phone" component="div" className="error" />
-
-                <div className="button-block">
-                    <button
+                <Stack
+                    className="button-block"
+                    spacing={2}
+                    direction="row"
+                    sx={{
+                        mt: '15px',
+                        pr: '40px',
+                        width: '100%',
+                        mx: 'auto',
+                        '& .MuiButton-root': {
+                            flex: 1,
+                            minWidth: 0,
+                        },
+                    }}
+                >
+                    <Button
                         className="new-btn"
                         type="button"
                         onClick={handleReset}
+                        sx={(theme) => ({
+                            bgcolor: theme.custom.newBtn.bg,
+                            color: theme.custom.newBtn.text,
+                            borderColor: theme.custom.newBtn.border,
+                        })}
                     >
                         New
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                         className="save-btn"
                         type="submit"
                         disabled={!isValid}
+                        fullWidth
+                        startIcon={<SaveIcon />}
+                        sx={{
+                            bgcolor: 'success.main',
+                            color: 'success.contrastText',
+                            borderColor: 'success.dark',
+                        }}
                     >
                         Save
-                    </button>
+                    </Button>
                     {selectedContact.id && (
-                        <button
+                        <Button
                             className="delete-form-btn"
                             type="button"
                             onClick={handleDelete}
+                            fullWidth
+                            sx={{
+                                bgcolor: 'error.light',
+                                color: 'error.contrastText',
+                                borderColor: 'error.main',
+                            }}
                         >
                             Delete
-                        </button>
+                        </Button>
                     )}
-                </div>
+                </Stack>
             </Form>
         );
     };

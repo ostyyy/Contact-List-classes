@@ -3,7 +3,7 @@ import ContactList from './components/ContactList/ContactList';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'; // import './App.css';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'; 
 
 const starIcon = {
     fontSize: { xs: '32px', sm: '48px' },
@@ -48,10 +48,6 @@ function App() {
                     variant="h1"
                     sx={{
                         color: 'primary.contrastText',
-                        textTransform: 'uppercase',
-                        fontWeight: 600,
-                        fontSize: 60,
-                        letterSpacing: '3px',
                     }}
                 >
                     Contact List

@@ -1,4 +1,4 @@
-.contact-form {
+/* .contact-form {
     display: flex;
     flex-direction: column;
 }
@@ -45,17 +45,17 @@
     color: #e96787;
 
     padding: 0;
-}
+} */
 
 .error {
     color: #e96787;
-    font-size: 18px;
+    font-size: 23px;
     margin-top: 0px;
     margin-bottom: 10px;
     padding-left: 4px;
 }
 
-.button-block {
+/* .button-block {
     display: flex;
     justify-content: space-between;
     gap: 15px;
@@ -102,4 +102,4 @@
 
 .button-block button:hover {
     transform: translateY(-2px);
-}
+} */
