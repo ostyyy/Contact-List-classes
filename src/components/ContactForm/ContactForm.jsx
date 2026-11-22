@@ -64,7 +64,7 @@ function ContactForm() {
 
         return (
             <Form className="contact-form">
-                <Stack spacing={2}>
+                <Stack spacing={2.5}>
                     <FormField
                         placeholder="First name"
                         name="firstName"
@@ -92,7 +92,7 @@ function ContactForm() {
                     spacing={2}
                     direction="row"
                     sx={{
-                        mt: '15px',
+                        mt: '40px',
                         pr: '40px',
                         width: '100%',
                         mx: 'auto',

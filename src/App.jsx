@@ -69,7 +69,7 @@ function App() {
                 <Box
                     className="list-container"
                     sx={{
-                        borderRight: 1,
+                        borderRight: 3,
                         borderColor: 'secondary.main',
                         p: '15px',
                         minWidth: 0,

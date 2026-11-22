@@ -27,7 +27,7 @@ export const theme = createTheme({
     typography: {
         fontFamily: '"VT323", monospace',
         body1: {
-            fontSize: '25px',
+            fontSize: '27px',
         },
         button: {
             fontFamily: '"VT323", monospace',
@@ -55,7 +55,7 @@ export const theme = createTheme({
                         borderColor: '#e064ff',
                         borderWidth: '2px',
                     },
-                    backgroundColor: '#e0fbfc',
+                    backgroundColor: '#e7fffce1',
                 },
                 notchedOutline: { borderColor: '#00d9ff', borderWidth: '2px' },
                 input: { color: '#ca5fff' },
